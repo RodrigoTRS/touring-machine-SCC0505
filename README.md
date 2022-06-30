@@ -1,6 +1,6 @@
-## Exercício 2 - SCC0505 - Introdução a Teoria da Computação
+# Exercício 2 - SCC0505 - Introdução a Teoria da Computação #
 
-# Manual para execucação do trabalho 2 da Disciplina de Introdução a Teorida da Computação #
+## Manual para execucação do trabalho 2 da Disciplina de Introdução a Teorida da Computação ##
 
 Para a execução do código do trabalho 2, siga o roteiro abaixo:
 
