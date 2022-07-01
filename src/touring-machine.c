@@ -86,15 +86,15 @@ int fifthLine(){
 
 // - - - - - Leitura da sexta linha em diante
 //
-void sixthBeyond(int transitions,States* states,char* terminalChars, char* extendedChars,int numStates){
+void sixthBeyond(int numTransitions, States* states, char* terminalChars, char* extendedChars, int numStates){
 
   int source, destination;
   char buffer, current, newChar, direction;
 
-  for(int i=0;i<transitions;i++){
+  for(int i=0;i<numTransitions;i++){
 
     scanf("%d",&source);
-    if((source>numStates-1 ) || (source < 0)){
+    if((source > numStates - 1 ) || (source < 0)){
       printf("Entrada nao aceita, o state source deve estar entre 0 e o numero total de states \n");
       exit(6);
     }
@@ -106,7 +106,7 @@ void sixthBeyond(int transitions,States* states,char* terminalChars, char* exten
     }
 
     scanf("%d",&destination);
-    if(destination>numStates-1||destination<0){
+    if((destination > numStates - 1) || (destination < 0)){
       printf("Entrada nao aceita, o state destination deve estar entre 0 e o numero total de states \n");
       exit(6);
     }
@@ -121,15 +121,15 @@ void sixthBeyond(int transitions,States* states,char* terminalChars, char* exten
     scanf("%c",&direction);
 
     if ( direction == 'R' ) {
-      allocateTransition(states, source, current, destination, newChar,1);
+      allocateTransition(states, source, current, destination, newChar, 1);
     } 
 
     else if ( direction == 'S' ) {
-      allocateTransition(states, source, current, destination, newChar,0);
+      allocateTransition(states, source, current, destination, newChar, 0);
     }
 
     else if ( direction == 'L' ) {
-      allocateTransition(states, source, current, destination, newChar,-1);
+      allocateTransition(states, source, current, destination, newChar, -1);
 
     }
   }
@@ -159,7 +159,7 @@ short isCharInvalid(char* terminalChars, char* extendedChars, char element){
 
 // - - - - - Aloca uma transicao
 //
-void allocateTransition(States* state,int source,char current,int destination, char newChar,int direction){
+void allocateTransition(States* state, int source, char current, int destination, char newChar, int direction){
 
   state[source].transition = (Transition*)realloc(state[source].transition,sizeof(Transition)*(state[source].numTransitions+1));
   state[source].transition[state[source].numTransitions].source = source;
@@ -172,7 +172,7 @@ void allocateTransition(States* state,int source,char current,int destination, c
 
 // - - - - - Processamento da touring machine
 //
-int touringProcessing(States* states,int accState,int numTransitions){
+int touringProcessing(States* states, int accState, int numTransitions){
   
     char longArray[40];
     char shortArray[20];
@@ -193,15 +193,16 @@ int touringProcessing(States* states,int accState,int numTransitions){
         }
 
         if ( processArray ( states, accState, 0, 20, longArray ) == 1 ) {
-            return 1;
+          return 1;
         }
         return 0;
     }
+  return 0;
 }
 
 // - - - - - Processa a cadeia
 //
-short processArray(States* state,int destination,int source,int current,char shortArray[]){
+short processArray(States* state, int destination, int source, int current, char shortArray[]){
 
   char recover;
 
@@ -218,13 +219,12 @@ short processArray(States* state,int destination,int source,int current,char sho
 
       if ( processArray ( state, destination, state[source].transition[i].destination, current + state[source].transition[i].direction, shortArray) == 1 ) {
         return 1;
-      } else {
-        return 0;
       }
-
       shortArray[current] = recover;
     }
   }
+
+  return 0;
 }
 
 // - - - - - Imprime as respostas

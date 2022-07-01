@@ -46,7 +46,7 @@ int main( int argc, char *argv[] ){
   for ( int i = 0; i < numInput; i++ ) {
     answers[i] = touringProcessing( stateArray, accState, numInput );
   }
-  
+
   printAnswers( numInput, answers );
 
   free( stateArray );
